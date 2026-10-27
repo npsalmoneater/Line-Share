@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE Share Flex</title>
+    <!-- 1. ดึงโครงสร้างระบบของ LINE LIFF SDK มาใช้งาน -->
+    <script src="https://line-scdn.net"></script>
+</head>
+<body>
+    <h2 style="text-align: center; margin-top: 50px;">กำลังโหลดระบบแชร์...</h2>
+
+    <script>
+        // 2. สั่งให้ระบบเริ่มทำงานทันทีที่เปิดหน้านี้
+        function main() {
+            // ใส่ LIFF ID ของคุณที่ได้จากขั้นตอนเตรียมการด้านบน (ตัดคำว่า https://line.me ออก เอาเฉพาะรหัสข้างหลัง)
+            liff.init({ liffId: "XXXXXX-XXXXXX" }).then(() => {
+                
+                // ตรวจสอบว่าเปิดระบบแชร์ใน LINE Dev หรือยัง
+                if (liff.isApiAvailable('shareTargetPicker')) {
+                    
+                    // 3. สั่งเด้งหน้าต่างเลือกเพื่อนเพื่อส่ง Flex Message ทันที
+                    liff.shareTargetPicker([
+                        {
+                            "type": "flex",
+                            "altText": "คุณได้รับข้อความโปรโมชัน",
+                            "contents": 
+                            
+                            // วางโค้ด JSON แบบ Carousel ของคุณต่อตรงนี้
+                            {
+                              "type": "carousel",
+                              "contents": [
+                                // ... โค้ดที่ได้จาก Flex Simulator ทั้งหมด ...
+                              ]
+                            }
+                            // สิ้นสุดโค้ด JSON ของคุณ
+
+                        }
+                    ]).then((res) => {
+                        if (res) {
+                            // แชร์สำเร็จให้ปิดหน้าจอนี้ทันที
+                            liff.closeWindow();
+                        } else {
+                            // กดปฏิเสธหรือไม่ส่ง ก็ให้ปิดหน้าจอ
+                            liff.closeWindow();
+                        }
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+
+                } else {
+                    alert("กรุณาเปิดฟีเจอร์ Share Target Picker ใน LINE Developers ก่อน");
+                }
+            }).catch((err) => {
+                console.log("LIFF Initialization failed", err);
+            });
+        }
+        
+        // รันฟังก์ชันหลัก
+        main();
+    </script>
+</body>
+</html>
