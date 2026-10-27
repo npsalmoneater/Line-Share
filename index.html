@@ -4,59 +4,180 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LINE Share Flex</title>
-    <!-- 1. ดึงโครงสร้างระบบของ LINE LIFF SDK มาใช้งาน -->
     <script src="https://line-scdn.net"></script>
 </head>
 <body>
-    <h2 style="text-align: center; margin-top: 50px;">กำลังโหลดระบบแชร์...</h2>
+    <h2 style="text-align: center; margin-top: 50px; font-family: sans-serif; color: #333;">กำลังโหลดระบบแชร์...</h2>
 
     <script>
-        // 2. สั่งให้ระบบเริ่มทำงานทันทีที่เปิดหน้านี้
         function main() {
-            // ใส่ LIFF ID ของคุณที่ได้จากขั้นตอนเตรียมการด้านบน (ตัดคำว่า https://line.me ออก เอาเฉพาะรหัสข้างหลัง)
-            liff.init({ liffId: "2012186247-OzYFFJAc" }).then(() => {
-                
-                // ตรวจสอบว่าเปิดระบบแชร์ใน LINE Dev หรือยัง
+            // ⚠️ เปลี่ยนรหัสในเครื่องหมายอัญประกาศตรงนี้ให้เป็น LIFF ID จริงของคุณ (เช่น "2006543210-AbCdEfGh")
+            const MY_LIFF_ID = "2012186247-OzYFFJAc";
+
+            liff.init({ liffId: MY_LIFF_ID }).then(() => {
                 if (liff.isApiAvailable('shareTargetPicker')) {
-                    
-                    // 3. สั่งเด้งหน้าต่างเลือกเพื่อนเพื่อส่ง Flex Message ทันที
                     liff.shareTargetPicker([
                         {
                             "type": "flex",
                             "altText": "คุณได้รับข้อความโปรโมชัน",
-                            "contents": 
-                            
-                            // วางโค้ด JSON แบบ Carousel ของคุณต่อตรงนี้
-                            {
+                            "contents": {
                               "type": "carousel",
                               "contents": [
-                                // ... โค้ดที่ได้จาก Flex Simulator ทั้งหมด ...
+                                {
+                                  "type": "bubble",
+                                  "hero": {
+                                    "type": "image",
+                                    "url": "https://unsplash.com",
+                                    "size": "full",
+                                    "aspectRatio": "20:13",
+                                    "aspectMode": "cover"
+                                  },
+                                  "body": {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "contents": [
+                                      {
+                                        "type": "text",
+                                        "text": "โปรโมชันที่ 1",
+                                        "weight": "bold",
+                                        "size": "xl"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "text": "รายละเอียดโปรโมชันแรกของคุณ ใส่ข้อความดึงดูดใจตรงนี้",
+                                        "size": "sm",
+                                        "color": "#666666",
+                                        "wrap": true,
+                                        "margin": "md"
+                                      }
+                                    ]
+                                  },
+                                  "footer": {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "spacing": "sm",
+                                    "contents": [
+                                      {
+                                        "type": "button",
+                                        "style": "link",
+                                        "height": "sm",
+                                        "action": {
+                                          "type": "uri",
+                                          "label": "ดูรายละเอียด",
+                                          "uri": "https://line.me"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "bubble",
+                                  "hero": {
+                                    "type": "image",
+                                    "url": "https://unsplash.com",
+                                    "size": "full",
+                                    "aspectRatio": "20:13",
+                                    "aspectMode": "cover"
+                                  },
+                                  "body": {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "contents": [
+                                      {
+                                        "type": "text",
+                                        "text": "โปรโมชันที่ 2",
+                                        "weight": "bold",
+                                        "size": "xl"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "text": "รายละเอียดโปรโมชันที่สอง สิทธิพิเศษเฉพาะสมาชิกเท่านั้น",
+                                        "size": "sm",
+                                        "color": "#666666",
+                                        "wrap": true,
+                                        "margin": "md"
+                                      }
+                                    ]
+                                  },
+                                  "footer": {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "spacing": "sm",
+                                    "contents": [
+                                      {
+                                        "type": "button",
+                                        "style": "link",
+                                        "height": "sm",
+                                        "action": {
+                                          "type": "uri",
+                                          "label": "ดูรายละเอียด",
+                                          "uri": "https://line.me"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "bubble",
+                                  "body": {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "contents": [
+                                      {
+                                        "type": "text",
+                                        "text": "แชร์ให้เพื่อนเลย! 🚀",
+                                        "weight": "bold",
+                                        "size": "lg",
+                                        "align": "center",
+                                        "gravity": "center"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "text": "ส่งต่อสิ่งดีๆ หรือโปรโมชันนี้ให้กับเพื่อนหรือกลุ่มของคุณ",
+                                        "size": "sm",
+                                        "color": "#aaaaaa",
+                                        "wrap": true,
+                                        "margin": "md",
+                                        "align": "center"
+                                      }
+                                    ]
+                                  },
+                                  "footer": {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "spacing": "sm",
+                                    "contents": [
+                                      {
+                                        "type": "button",
+                                        "style": "primary",
+                                        "height": "sm",
+                                        "color": "#06C755",
+                                        "action": {
+                                          "type": "uri",
+                                          "label": "กดเพื่อแชร์ต่อ 🔄",
+                                          "uri": "https://line.me" + MY_LIFF_ID
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
                               ]
                             }
-                            // สิ้นสุดโค้ด JSON ของคุณ
-
                         }
                     ]).then((res) => {
-                        if (res) {
-                            // แชร์สำเร็จให้ปิดหน้าจอนี้ทันที
-                            liff.closeWindow();
-                        } else {
-                            // กดปฏิเสธหรือไม่ส่ง ก็ให้ปิดหน้าจอ
-                            liff.closeWindow();
-                        }
+                        liff.closeWindow();
                     }).catch((error) => {
-                        console.log(error);
+                        console.error(error);
+                        alert("เกิดข้อผิดพลาดในการแชร์: " + error.message);
                     });
-
                 } else {
-                    alert("กรุณาเปิดฟีเจอร์ Share Target Picker ใน LINE Developers ก่อน");
+                    alert("กรุณาเปิดสิทธิ์ Share Target Picker ใน LINE Developers ก่อน");
                 }
             }).catch((err) => {
-                console.log("LIFF Initialization failed", err);
+                console.error("LIFF เกิดข้อผิดพลาดในการเปิดระบบ:", err);
+                alert("ไม่สามารถเชื่อมต่อ LINE ได้ กรุณาเช็กชื่อระบบหรือ Endpoint URL");
             });
         }
-        
-        // รันฟังก์ชันหลัก
         main();
     </script>
 </body>
